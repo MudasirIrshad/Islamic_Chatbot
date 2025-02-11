@@ -56,7 +56,7 @@ export default function Home() {
         { role: "bot", content: response.data.answer },
       ]);
     } catch (error) {
-      console.error("Error fetching chatbot response:", error);
+      console.error("This is the error:", error);
     } finally {
       setIsLoading(false);
     }
