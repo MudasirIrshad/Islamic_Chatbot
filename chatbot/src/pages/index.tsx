@@ -50,7 +50,13 @@ export default function Home() {
     setMessage("");
 
     try {
-      const response = await axios.post("/api/chatbot", { message });
+      const response = await axios.post(
+        "https://islamic-chatbot-eight.vercel.app/api/chatbot",
+        {
+          message,
+        }
+      );
+
       setChatHistory((prevHistory) => [
         ...prevHistory,
         { role: "bot", content: response.data.answer },
