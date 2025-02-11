@@ -50,15 +50,7 @@ export default function Home() {
     setMessage("");
 
     try {
-      const response = await axios.post(
-        "/api/chatbot",
-        { message },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post("/api/chatbot", { message });
       setChatHistory((prevHistory) => [
         ...prevHistory,
         { role: "bot", content: response.data.answer },
