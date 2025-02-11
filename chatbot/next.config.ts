@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /* config options here */
   reactStrictMode: true,
-  distDir: "build", // Ensures build output directory is correctly set
 };
 
 export default nextConfig;
