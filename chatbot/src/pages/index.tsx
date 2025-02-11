@@ -60,7 +60,7 @@ export default function Home() {
       .catch((err) => {
         console.error("Axios Error:", err.response?.data || err.message);
         alert(
-          `Failed to send message. Error: ${
+          `Front end request error. Error: ${
             err.response?.data?.message || err.message
           }`
         );
