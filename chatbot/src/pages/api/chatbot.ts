@@ -8,14 +8,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
+    return res.status(405).send({ error: "Method Not Allowed" });
   }
 
   try {
     const { message } = req.body;
 
     if (!message) {
-      return res.status(400).json({ error: "Message parameter is required" });
+      return res.status(400).send({ error: "Message parameter is required" });
     }
 
     const response = await groq.chat.completions.create({
@@ -30,9 +30,9 @@ export default async function handler(
       ],
     });
 
-    res.status(200).json({ answer: response.choices[0].message?.content });
+    res.status(200).send({ answer: response.choices[0].message?.content });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Failed to fetch response" });
+    res.status(500).send({ error: "Failed to fetch response" });
   }
 }
