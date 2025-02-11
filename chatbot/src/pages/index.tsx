@@ -54,7 +54,7 @@ export default function Home() {
       .then((res) => {
         setChatHistory((prevHistory) => [
           ...prevHistory,
-          { role: "bot", content: res.data.answer },
+          { role: "user", content: res.data.answer },
         ]);
       })
       .catch((err) => {
