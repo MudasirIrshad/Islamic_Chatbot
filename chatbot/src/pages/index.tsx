@@ -24,10 +24,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+interface ChatMessage {
+  role: "user" | "bot";
+  content: string;
+}
+
+interface ApiResponse {
+  answer: string;
+}
+
 export default function Home() {
-  const [message, setMessage] = useState("");
-  const [chatHistory, setChatHistory] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<string>("");
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSendMessage = async () => {
     if (!message.trim()) return;
@@ -48,7 +57,7 @@ export default function Home() {
         body: JSON.stringify({ message }),
       });
 
-      const data = await response.json();
+      const data: ApiResponse = await response.json();
       setChatHistory((prevHistory) => [
         ...prevHistory,
         { role: "bot", content: data.answer },
