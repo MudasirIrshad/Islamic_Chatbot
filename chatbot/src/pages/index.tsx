@@ -12,7 +12,6 @@ import {
 import { Geist, Geist_Mono } from "next/font/google";
 import bismillah_image from "@/assests/images/abc.png";
 import styles from "@/styles/Home.module.css";
-import axios from "axios";
 
 // Font imports
 const geistSans = Geist({
@@ -41,14 +40,18 @@ export default function Home() {
     setMessage("");
 
     try {
-      const response = await axios.post("/api/chatbot", message, {
+      const response = await fetch("/api/chatbot", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ message }),
       });
+
+      const data = await response.json();
       setChatHistory((prevHistory) => [
         ...prevHistory,
-        { role: "bot", content: response.data.answer },
+        { role: "bot", content: data.answer },
       ]);
     } catch (error) {
       console.error("Error fetching chatbot response:", error);
@@ -90,6 +93,7 @@ export default function Home() {
               height: "60vh",
               maxWidth: 600,
               margin: "auto",
+              marginBottom: "20px",
               boxShadow: 3,
               borderRadius: 2,
             }}
