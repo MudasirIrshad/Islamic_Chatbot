@@ -58,8 +58,12 @@ export default function Home() {
         ]);
       })
       .catch((err) => {
-        console.error(err);
-        alert("Failed to send message. Please try again later.");
+        console.error("Axios Error:", err.response?.data || err.message);
+        alert(
+          `Failed to send message. Error: ${
+            err.response?.data?.message || err.message
+          }`
+        );
       })
       .finally(() => {
         setIsLoading(false);
