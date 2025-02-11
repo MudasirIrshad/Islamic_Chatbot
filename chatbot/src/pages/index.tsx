@@ -75,15 +75,12 @@ export default function Home() {
             <Image
               src={bismillah_image}
               alt="Bismillah"
-              width={500}
-              height={200}
+              width={400}
+              height={150}
               priority
             />
-            <Typography variant="h3" gutterBottom>
+            <Typography variant="h4" gutterBottom>
               Islamic Chatbot
-            </Typography>
-            <Typography variant="h6" color="textSecondary">
-              Learn Islam Easily
             </Typography>
           </Box>
 

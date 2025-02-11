@@ -1,8 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import Groq from "groq-sdk";
 // Initialize OpenAI API client
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
+// pages/api/chatbot.ts
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -13,7 +14,6 @@ export default async function handler(
 
   try {
     const { message } = req.body;
-
     if (!message) {
       return res.status(400).send({ error: "Message parameter is required" });
     }
