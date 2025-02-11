@@ -33,4 +33,5 @@ export default async function handler(
       res.status(500).send({ error: "Failed to fetch response" });
     }
   }
+  res.send({ error: "Error from backend due to request" });
 }
