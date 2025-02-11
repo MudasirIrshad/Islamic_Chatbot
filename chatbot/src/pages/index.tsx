@@ -49,17 +49,21 @@ export default function Home() {
     ]);
     setMessage("");
 
-    try {
-      const response = await axios.post("/api/chatbot", { message });
-      setChatHistory((prevHistory) => [
-        ...prevHistory,
-        { role: "bot", content: response.data.answer },
-      ]);
-    } catch (error) {
-      console.error("This is the error:", error);
-    } finally {
-      setIsLoading(false);
-    }
+    await axios
+      .post("/api/chatbot", { message })
+      .then((res) => {
+        setChatHistory((prevHistory) => [
+          ...prevHistory,
+          { role: "bot", content: res.data.answer },
+        ]);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Failed to send message. Please try again later.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
