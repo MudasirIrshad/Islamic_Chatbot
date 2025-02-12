@@ -8,6 +8,7 @@ import {
   Typography,
   Paper,
   CircularProgress,
+  Container,
 } from "@mui/material";
 import { Geist, Geist_Mono } from "next/font/google";
 import bismillah_image from "@/assests/images/abc.png";
@@ -28,10 +29,6 @@ const geistMono = Geist_Mono({
 interface ChatMessage {
   role: "user" | "bot";
   content: string;
-}
-
-interface ApiResponse {
-  answer: string;
 }
 
 export default function Home() {
@@ -60,9 +57,7 @@ export default function Home() {
       .catch((err) => {
         console.error("Axios Error:", err.response?.data || err.message);
         alert(
-          `Front end request error. Error: ${
-            err.response?.data?.message || err.message
-          }`
+          `Front-end request error. Error: ${err.response?.data?.message || err.message}`
         );
       })
       .finally(() => {
@@ -75,18 +70,20 @@ export default function Home() {
       <Head>
         <title>Islamic Chatbot</title>
       </Head>
-      <div
-        className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#f5f5f5",
+          padding: 2,
+        }}
       >
-        <main className={styles.main}>
-          <Box sx={{ textAlign: "center", marginBottom: 4 }}>
-            <Image
-              src={bismillah_image}
-              alt="Bismillah"
-              width={400}
-              height={150}
-              priority
-            />
+        <Container maxWidth="md">
+          <Box textAlign="center" mb={4}>
+            <Image src={bismillah_image} alt="Bismillah" width={300} height={100} priority />
             <Typography variant="h4" gutterBottom>
               Islamic Chatbot
             </Typography>
@@ -94,20 +91,20 @@ export default function Home() {
 
           <Paper
             sx={{
-              padding: 2,
+              padding: 3,
               display: "flex",
               flexDirection: "column",
-              height: "60vh",
-              maxWidth: 600,
-              margin: "auto",
-              marginBottom: "20px",
+              height: { xs: "65vh", md: "70vh" },
+              maxWidth: "100%",
               boxShadow: 3,
               borderRadius: 2,
+              backgroundColor: "white",
+              overflow: "hidden",
             }}
           >
             <Box sx={{ overflowY: "auto", flexGrow: 1, paddingBottom: 2 }}>
               {chatHistory.length === 0 && (
-                <Box sx={{ textAlign: "center", padding: 2 }}>
+                <Box textAlign="center" padding={2}>
                   <Typography variant="body1" color="textSecondary">
                     Welcome! Ask me anything about Islam.
                   </Typography>
@@ -124,11 +121,10 @@ export default function Home() {
                 >
                   <Box
                     sx={{
-                      backgroundColor:
-                        chat.role === "user" ? "#e0f7fa" : "#f1f1f1",
+                      backgroundColor: chat.role === "user" ? "#e0f7fa" : "#f1f1f1",
                       padding: 2,
                       borderRadius: 2,
-                      maxWidth: "70%",
+                      maxWidth: "75%",
                       wordWrap: "break-word",
                     }}
                   >
@@ -138,14 +134,14 @@ export default function Home() {
               ))}
             </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box sx={{ display: "flex", alignItems: "center", marginTop: 1 }}>
               <TextField
                 label="Type your message..."
                 variant="outlined"
                 fullWidth
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                sx={{ marginRight: 2 }}
+                sx={{ marginRight: 2, backgroundColor: "white" }}
                 disabled={isLoading}
               />
               <Button
@@ -163,8 +159,8 @@ export default function Home() {
               </Button>
             </Box>
           </Paper>
-        </main>
-      </div>
+        </Container>
+      </Box>
     </>
   );
 }
